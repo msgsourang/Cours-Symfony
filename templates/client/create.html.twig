@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un client{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Créer un client</h1>
+
+    <form action="{{ path('client_store') }}" method="post">
+        <div class="mb-3">
+            <label for="surname" class="form-label">Surname</label>
+            <input type="text" class="form-control" id="surname" name="surname" required>
+        </div>
+        <div class="mb-3">
+            <label for="telephone" class="form-label">Téléphone</label>
+            <input type="text" class="form-control" id="telephone" name="telephone" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Adresse</label>
+            <input type="text" class="form-control" id="adresse" name="adresse" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Créer</button>
+        <a href="{{ path('client.index') }}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+{% endblock %}

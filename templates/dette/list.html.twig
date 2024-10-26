@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dettes de {{ client.surname }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-4">Dettes de {{ client.surname }}</h1>
+
+    <div class="d-flex justify-content-between mb-4">
+        <div>
+            <p><strong>Nom :</strong> {{ client.surname }}</p>
+            <p><strong>Prénom :</strong> {{ client.prenom }}</p>
+            <p><strong>Tel :</strong> {{ client.telephone }}</p>
+        </div>
+        <div class="text-right">
+            <p><strong>Total dû :</strong> {{ totalDu }}</p>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Montant</th>
+                <th>Montant payé</th>
+                <th>Montant restant</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dette in dettes %}
+                <tr>
+                    <td>{{ dette.date|date('Y-m-d') }}</td>
+                    <td>{{ dette.montant }}</td>
+                    <td>{{ dette.montantverser }}</td>
+                    <td>{{ dette.getMontantRestant() }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">Aucune dette trouvée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

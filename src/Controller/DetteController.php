@@ -24,13 +24,10 @@ public function listByClient(int $id, ClientRepository $clientRepository, DetteR
         throw $this->createNotFoundException('Client non trouvé');
     }
 
-    // Récupération de l'état de statut
     $statut = $request->query->get('statut', null);
 
-    // Récupération des dettes
     $dettes = $detteRepository->findBy(['client' => $client]);
 
-    // Filtre par statut si défini
     if ($statut !== null) {
         $dettes = array_filter($dettes, function ($dette) use ($statut) {
             return $dette->getStatut() === (bool)$statut;
@@ -45,7 +42,7 @@ public function listByClient(int $id, ClientRepository $clientRepository, DetteR
         'client' => $client,
         'dettes' => $dettes,
         'totalDu' => $totalDu,
-        'statut' => $statut, // Passez statut à la vue
+        'statut' => $statut,
     ]);
 }
 

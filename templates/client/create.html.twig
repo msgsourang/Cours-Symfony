@@ -24,13 +24,11 @@
             <input type="text" class="form-control" id="adresse" name="adresse" required>
         </div>
 
-        <!-- Case à cocher pour décider si le client doit avoir un compte utilisateur -->
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="hasAccount" name="hasAccount">
             <label class="form-check-label" for="hasAccount">Créer un compte utilisateur</label>
         </div>
 
-        <!-- Champs pour le compte utilisateur -->
         <div id="account-fields" style="display: {% if hasAccount %}block{% else %}none{% endif %};">
             <div class="mb-3">
                 <label for="login" class="form-label">Login</label>

@@ -13,12 +13,10 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    // Méthode pour filtrer les clients
     public function findByFilters(string $surname = '', string $telephone = '')
     {
         $qb = $this->createQueryBuilder('c');
 
-        // Ajouter des conditions dynamiques en fonction des filtres
         if (!empty($surname)) {
             $qb->andWhere('c.surname LIKE :surname')
                ->setParameter('surname', '%' . $surname . '%');

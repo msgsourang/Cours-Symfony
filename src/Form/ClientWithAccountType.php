@@ -28,13 +28,13 @@ class ClientWithAccountType extends AbstractType
             ->add('hasAccount', CheckboxType::class, [
                 'label' => 'Avoir un compte utilisateur',
                 'required' => false,
-                'mapped' => false, // car il ne correspond pas à une propriété de l'entité Client
+                'mapped' => false, 
             ])
             ->add('compte', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'login', // Supposons que l'attribut 'login' identifie l'utilisateur
+                'choice_label' => 'login', 
                 'label' => 'Compte Utilisateur',
-                'required' => false, // Ne pas obliger la sélection d'un compte
+                'required' => false,
             ]);
     }
 

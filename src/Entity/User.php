@@ -116,26 +116,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // Méthode requise par l'interface PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
-        return $this->login; // Utiliser l'attribut login comme identifiant
+        return $this->login; 
     }
 
-    // Méthode requise par l'interface UserInterface
     public function getRoles(): array
     {
-        return ['ROLE_USER']; // Définir les rôles appropriés ici
+        return ['ROLE_USER']; 
     }
 
     public function getSalt(): ?string
     {
-        return null; // Pas nécessaire si vous utilisez un algorithme de hachage moderne
+        return null;
     }
 
-    // Méthode corrigée pour respecter l'interface UserInterface
     public function eraseCredentials(): void
     {
-        // Si vous stockez des données sensibles, effacez-les ici
     }
 }

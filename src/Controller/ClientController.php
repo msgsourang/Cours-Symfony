@@ -52,19 +52,19 @@ class ClientController extends AbstractController
     #[Route('/client/{id}/dettes', name: 'dette_list_by_client')]
 public function listDettes(Client $client, DetteRepository $detteRepo, Request $request): Response
 {
-    $statut = $request->query->get('statut', null); // Récupération de l'état de statut
+    $statut = $request->query->get('statut', null);
     $dettes = $detteRepo->findBy(['client' => $client]);
 
     if ($statut !== null) {
         $dettes = array_filter($dettes, function ($dette) use ($statut) {
-            return $dette->getStatut() === (bool)$statut; // Filtre par statut
+            return $dette->getStatut() === (bool)$statut; 
         });
     }
 
     return $this->render('dette/list.html.twig', [
         'client' => $client,
         'dettes' => $dettes,
-        'statut' => $statut, // Passez statut à la vue
+        'statut' => $statut, 
     ]);
 }
 
@@ -79,9 +79,9 @@ public function listDettes(Client $client, DetteRepository $detteRepo, Request $
         
         if ($form->isSubmitted() && $form->isValid()) {
             $userData = $form->get('compte')->getData();
-            $hasAccount = $form->get('hasAccount')->getData(); // Récupération de l'état de hasAccount
+            $hasAccount = $form->get('hasAccount')->getData();
 
-            if ($hasAccount) { // Vérification de la case à cocher
+            if ($hasAccount) {
                 $user->setPrenom($userData->getPrenom());
                 $user->setLogin($userData->getLogin());
                 $hashedPassword = $this->passwordHasher->hashPassword($user, $userData->getPassword());
@@ -99,7 +99,7 @@ public function listDettes(Client $client, DetteRepository $detteRepo, Request $
         
         return $this->render('client/create.html.twig', [
             'form' => $form->createView(),
-            'hasAccount' => false, // Définit par défaut à false
+            'hasAccount' => false, 
         ]);
     }
 
@@ -112,7 +112,7 @@ public function listDettes(Client $client, DetteRepository $detteRepo, Request $
         $client->setTelephone($request->request->get('telephone'));
         $client->setAdresse($request->request->get('adresse'));
 
-        $hasAccount = $request->request->getBoolean('hasAccount', false); // Utiliser getBoolean pour hasAccount
+        $hasAccount = $request->request->getBoolean('hasAccount', false); 
 
         if ($hasAccount) {
             $user = new User();

@@ -18,7 +18,7 @@ class DetteRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère les dettes d'un client spécifique.
+     * 
      *
      * @param Client $client
      * @return Dette[] Retourne un tableau d'objets Dette.
@@ -28,7 +28,7 @@ class DetteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
             ->andWhere('d.client = :client')
             ->setParameter('client', $client)
-            ->orderBy('d.date', 'ASC') // Vous pouvez ordonner par date ou tout autre critère
+            ->orderBy('d.date', 'ASC') 
             ->getQuery()
             ->getResult();
     }

@@ -17,6 +17,19 @@
         </div>
     </div>
 
+    <!-- Formulaire de filtre par statut -->
+    <form method="get" action="{{ path('dette_list_by_client', {id: client.id}) }}" class="mb-4">
+    <div class="form-group">
+        <label for="statut">Filtrer par statut :</label>
+        <select name="statut" id="statut" class="form-select">
+            <option value="" {% if statut is empty %}selected{% endif %}>Tous</option>
+            <option value="1" {% if statut == true %}selected{% endif %}>Solde</option>
+            <option value="0" {% if statut == false %}selected{% endif %}>Non Solde</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrer</button>
+</form>
+
     <table class="table table-striped">
         <thead>
             <tr>

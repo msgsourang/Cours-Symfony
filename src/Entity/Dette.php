@@ -16,7 +16,7 @@ class Dette
     #[ORM\Column]
     private ?float $montant = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $createAt = null;
 
     #[ORM\Column]
@@ -28,6 +28,9 @@ class Dette
     #[ORM\ManyToOne(inversedBy: 'dettes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $statut; // true = Solde, false = Non Solde
 
     public function getId(): ?int
     {
@@ -93,8 +96,24 @@ class Dette
 
         return $this;
     }
+
     public function getMontantRestant(): ?float
     {
         return $this->montant - ($this->montantverser ?? 0);
+    }
+
+    public function isSolde(): bool
+    {
+        return $this->statut;
+    }
+    public function getStatut(): bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(bool $statut): self
+    {
+        $this->statut = $statut;
+        return $this;
     }
 }

@@ -8,19 +8,53 @@
 
     <form action="{{ path('client_store') }}" method="post">
         <div class="mb-3">
-            <label for="surname" class="form-label">Surname</label>
+            <label for="surname" class="form-label">Nom</label>
             <input type="text" class="form-control" id="surname" name="surname" required>
+        </div>
+        <div class="mb-3">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="prenom" name="prenom" required>
         </div>
         <div class="mb-3">
             <label for="telephone" class="form-label">Téléphone</label>
             <input type="text" class="form-control" id="telephone" name="telephone" required>
         </div>
         <div class="mb-3">
-            <label for="address" class="form-label">Adresse</label>
+            <label for="adresse" class="form-label">Adresse</label>
             <input type="text" class="form-control" id="adresse" name="adresse" required>
         </div>
+
+        <!-- Case à cocher pour décider si le client doit avoir un compte utilisateur -->
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="hasAccount" name="hasAccount">
+            <label class="form-check-label" for="hasAccount">Créer un compte utilisateur</label>
+        </div>
+
+        <!-- Champs pour le compte utilisateur -->
+        <div id="account-fields" style="display: {% if hasAccount %}block{% else %}none{% endif %};">
+            <div class="mb-3">
+                <label for="login" class="form-label">Login</label>
+                <input type="text" class="form-control" id="login" name="login">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Créer</button>
         <a href="{{ path('client.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
+
+<script>
+    document.getElementById('hasAccount').addEventListener('change', function() {
+        const accountFields = document.getElementById('account-fields');
+        if (this.checked) {
+            accountFields.style.display = 'block';
+        } else {
+            accountFields.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}

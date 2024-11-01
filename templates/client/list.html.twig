@@ -13,17 +13,24 @@
                 <input type="text" name="surname" id="surname" class="form-control" value="{{ surname }}">
             </div>
             <div class="col-md-4">
-                <label for="phone" class="form-label">Filtrer par tel :</label>
+                <label for="telephone" class="form-label">Filtrer par tel :</label>
                 <input type="text" name="telephone" id="telephone" class="form-control" value="{{ telephone }}">
+            </div>
+            <div class="col-md-4">
+                <label for="hasAccount" class="form-label">Filtre par compte :</label>
+                <select name="hasAccount" id="hasAccount" class="form-select">
+                    <option value="" {% if hasAccount is null %}{% endif %}>All</option>
+                    <option value="1" {% if hasAccount == true %}{% endif %}>Oui</option>
+                    <option value="0" {% if hasAccount == false %}{% endif %}>Non</option>
+                </select>
             </div>
             <div class="col-md-4 align-self-end">
                 <button type="submit" class="btn btn-primary mt-2">Filtrer</button>
                 <a href="{{ path('client.index') }}" class="btn btn-secondary mt-2">Réinitialiser</a>
             </div>
-            <div><div class="d-flex justify-content-end mb-3">
+            <div class="d-flex justify-content-end mb-3">
                 <a href="{{ path('client_create') }}" class="btn btn-primary">Créer un Client</a>
             </div>
-         </div>
         </div>
     </form>
 

@@ -6,6 +6,7 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -15,19 +16,20 @@ class Client
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20, unique: true)]
+    #[ORM\Column(length: 30, unique: true)]
     private ?string $surname = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    private ?string $prenom = null; 
+    private ?string $prenom = null;
 
-    #[ORM\Column(length: 9, unique: true)]
+    #[ORM\Column(length: 30, unique: true)]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adresse = null;
 
     #[ORM\OneToOne(inversedBy: 'client', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $compte = null;
 
     /**
@@ -35,6 +37,9 @@ class Client
      */
     #[ORM\OneToMany(targetEntity: Dette::class, mappedBy: 'client')]
     private Collection $dettes;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?User $relation = null;
 
     public function __construct()
     {
@@ -51,6 +56,13 @@ class Client
         return $this->surname;
     }
 
+    public function setSurname(string $surname): static
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
     public function getPrenom(): ?string
     {
         return $this->prenom;
@@ -59,13 +71,6 @@ class Client
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function setSurname(string $surname): static
-    {
-        $this->surname = $surname;
 
         return $this;
     }
@@ -127,11 +132,22 @@ class Client
     public function removeDette(Dette $dette): static
     {
         if ($this->dettes->removeElement($dette)) {
-            // set the owning side to null (unless already changed)
             if ($dette->getClient() === $this) {
                 $dette->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRelation(): ?User
+    {
+        return $this->relation;
+    }
+
+    public function setRelation(?User $relation): static
+    {
+        $this->relation = $relation;
 
         return $this;
     }
